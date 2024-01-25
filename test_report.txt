@@ -13,6 +13,7 @@ Browserslist: caniuse-lite is outdated. Please run:
   Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
 PASS src/functions.test.ts
 PASS src/text.test.tsx
+PASS src/arrays.test.ts
 FAIL src/HtmlCss.test.tsx
   ● Some HTML Elements are added. › There is a header
 
@@ -275,11 +276,12 @@ File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 --------------|---------|----------|---------|---------|-------------------
 All files     |     100 |      100 |     100 |     100 |                   
  App.tsx      |     100 |      100 |     100 |     100 |                   
+ arrays.ts    |     100 |      100 |     100 |     100 |                   
  functions.ts |     100 |      100 |     100 |     100 |                   
 --------------|---------|----------|---------|---------|-------------------
 
-Test Suites: 1 failed, 3 passed, 4 total
-Tests:       5 failed, 9 passed, 14 total
+Test Suites: 1 failed, 4 passed, 5 total
+Tests:       5 failed, 18 passed, 23 total
 Snapshots:   0 total
-Time:        2.635 s
+Time:        2.764 s
 Ran all test suites.
