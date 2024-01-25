@@ -5,7 +5,13 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    if (numbers.length === 0) {
+        return [];
+    } else if (numbers.length === 1) {
+        return [...numbers, ...numbers];
+    } else {
+        return [numbers[0], numbers[numbers.length - 1]];
+    }
 }
 
 /**
@@ -13,7 +19,8 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    const tripled = numbers.map((number) => number * 3);
+    return tripled;
 }
 
 /**
@@ -21,7 +28,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const converted = numbers.map((number) =>
+        isNaN(parseInt(number)) ? 0 : parseInt(number)
+    );
+    return converted;
 }
 
 /**
@@ -32,7 +42,14 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    //if it includes a dollar sign and it is a number, then parse it as an int. otherwise
+    //it should be 0
+    const removedDollars = amounts.map((amount) =>
+        isNaN(parseInt(amount.replace("$", "")))
+            ? 0
+            : parseInt(amount.replace("$", ""))
+    );
+    return removedDollars;
 };
 
 /**
@@ -41,7 +58,14 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    //mark all the strings with ! uppercase.
+    const uppercase = messages.map((message) =>
+        message.endsWith("!") ? message.toUpperCase() : message
+    );
+    //now that we have our uppercase array, we want to filter out the ones that don't have a question mark
+    const filtered = uppercase.filter((string) => !string.endsWith("?"));
+
+    return filtered;
 };
 
 /**
@@ -49,7 +73,9 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    //we want to run filter on word.length < 4
+    const filtered = words.filter((word) => word.length < 4);
+    return filtered.length;
 }
 
 /**
@@ -58,7 +84,14 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    //if empty list (or length = 0) return true
+    if (colors.length === 0) {
+        return true;
+    }
+    //every checks if every color is of type 'red' or 'green' or 'blue'
+    return colors.every(
+        (color) => color === "red" || color === "green" || color === "blue"
+    );
 }
 
 /**
@@ -69,7 +102,18 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    //reduce finds our total
+    const total = addends.reduce(
+        (runningTotal: number, num: number) => runningTotal + num,
+        0
+    );
+    //string for each number in addends
+
+    //return toString form of total= and then theNums
+    return total.toString() + "=" + addends.join("+");
 }
 
 /**
@@ -81,6 +125,36 @@ export function makeMath(addends: number[]): string {
  * For instance, the array [1, 9, -5, 7] would become [1, 9, -5, 10, 7]
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
+
+function injectPositiveIfNegative(values: number[]): number[] {
+    const newValues = [...values]; //array that we will manipulate on
+
+    //find location of the first negative number
+    const firstNegative = newValues.findIndex((value: number) => value < 0);
+
+    //adds the first few values UP to the firstNegative
+    const addFirstNValues = newValues.slice(0, firstNegative);
+
+    //Now that we added the first N values together...
+    const total = addFirstNValues.reduce(
+        (runningTotal: number, number: number) => runningTotal + number,
+        0
+    );
+
+    //reference the newValues array, and insert firstNegative + 1 the value of total
+    newValues.splice(firstNegative + 1, 0, total);
+
+    return newValues;
+}
+
 export function injectPositive(values: number[]): number[] {
-    return [];
+    if (!values.some((number) => number < 0)) {
+        const total = values.reduce(
+            (runningTotal: number, num: number) => runningTotal + num,
+            0
+        );
+        return [...values, total];
+    }
+
+    return injectPositiveIfNegative(values);
 }
