@@ -11,6 +11,7 @@ function App(): JSX.Element {
     return (
         <div className="App">
             <header className="App-header">
+
                 UD CISC275 with React Hooks and TypeScript
             </header>
             <hr></hr>
@@ -25,6 +26,12 @@ function App(): JSX.Element {
             <ChangeType></ChangeType>
             <hr />
             <CycleHoliday></CycleHoliday>
+                Hello World UD CISC275 with Kevin Chau
+            </header>
+            <p>
+                Edit <code>src/App.tsx</code> and save. This page will
+                automatically reload.
+            </p>
         </div>
     );
 }
