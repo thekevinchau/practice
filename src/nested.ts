@@ -248,20 +248,24 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
+    const spliceFunction = (question: Question) => {
+        const newArray = [...question.options];
+        newArray.splice(targetOptionIndex, 1, newOption);
+        return newArray;
+    };
     if (targetOptionIndex === -1) {
-        return questions.map((question: Question) =>
-            question.id === targetId
-                ? { ...question, options: [...question.options, newOption] }
-                : { ...question }
+        return questions.map(
+            (question: Question): Question =>
+                question.id === targetId
+                    ? { ...question, options: [...question.options, newOption] }
+                    : { ...question }
         );
     } else {
-        return questions.map((question: Question) =>
-            question.id === targetId
-                ? {
-                      ...question,
-                      options: insertAt(question, targetOptionIndex, newOption)
-                  }
-                : { ...question }
+        return questions.map(
+            (question: Question): Question =>
+                question.id === targetId
+                    ? { ...question, options: spliceFunction(question) }
+                    : { ...question }
         );
     }
 }
